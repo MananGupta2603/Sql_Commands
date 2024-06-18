@@ -8,7 +8,7 @@
 - [Window Functions](#window-functions)
 - [Joins and Subqueries](#joins-and-subqueries)
 - [Data Analysis Functions](#data-analysis-functions)
-
+- [Additional Resources](#additional-resources)
 ---
 
 ## Data Retrieval and Manipulation
@@ -96,6 +96,10 @@
 | **DENSE_RANK()**        | Assigns a unique rank to each row within the partition of a result set, without gaps in ranking values. | `SELECT employee_name, salary, DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank FROM employees;` |
 
 ---
+## Additional Resources
+- [MySQL Documentation](https://dev.mysql.com/doc/): Official documentation for MySQL, providing detailed explanations and examples of SQL commands.
+- [GeeksOfGeeks]([https://www.w3schools.com/sql/](https://www.geeksforgeeks.org/sql-tutorial/?ref=shm)): A comprehensive online tutorial covering SQL basics, advanced SQL, SQL joins, SQL functions, and more.
+
 
 This table provides an overview of commonly used SQL commands and functions in data engineering tasks. Each command includes a brief description, example usage, and where applicable, a SQL query demonstrating its use.
 
