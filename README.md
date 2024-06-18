@@ -98,7 +98,7 @@
 ---
 ## Additional Resources
 - [MySQL Documentation](https://dev.mysql.com/doc/): Official documentation for MySQL, providing detailed explanations and examples of SQL commands.
-- [GeeksOfGeeks]([https://www.w3schools.com/sql/](https://www.geeksforgeeks.org/sql-tutorial/?ref=shm)): A comprehensive online tutorial covering SQL basics, advanced SQL, SQL joins, SQL functions, and more.
+- [GeeksOfGeeks](https://www.geeksforgeeks.org/sql-tutorial/?ref=shm): A comprehensive online tutorial covering SQL basics, advanced SQL, SQL joins, SQL functions, and more.
 
 
 This table provides an overview of commonly used SQL commands and functions in data engineering tasks. Each command includes a brief description, example usage, and where applicable, a SQL query demonstrating its use.
