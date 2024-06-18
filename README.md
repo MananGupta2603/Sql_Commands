@@ -1,7 +1,17 @@
+# SQL Commands Used in Data Engineering
 
-### SQL Commands Used in Data Engineering
+## Table of Contents
 
-#### Data Retrieval and Manipulation
+- [Data Retrieval and Manipulation](#data-retrieval-and-manipulation)
+- [Table and Index Management](#table-and-index-management)
+- [Data Aggregation and Grouping](#data-aggregation-and-grouping)
+- [Window Functions](#window-functions)
+- [Joins and Subqueries](#joins-and-subqueries)
+- [Data Analysis Functions](#data-analysis-functions)
+
+---
+
+## Data Retrieval and Manipulation
 
 | SQL Command             | Description                                                                                      | Example Usage                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -18,11 +28,13 @@
 | **EXCEPT**              | Returns distinct rows from the left SELECT statement that are not returned by the right SELECT statement. | `SELECT customer_name FROM customers WHERE city = 'New York' EXCEPT SELECT customer_name FROM customers WHERE city = 'Los Angeles';` |
 | **INTERSECT**           | Returns distinct rows that are output by both the left and right SELECT statements.                 | `SELECT customer_name FROM customers WHERE city = 'New York' INTERSECT SELECT customer_name FROM customers WHERE city = 'Los Angeles';` |
 
-#### Table and Index Management
+---
+
+## Table and Index Management
 
 | SQL Command             | Description                                                                                      | Example Usage                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| **CREATE TABLE**        | Creates a new table in the database.                                                              | ```sql CREATE TABLE products (product_id INT, product_name VARCHAR(255));```                         |
+| **CREATE TABLE**        | Creates a new table in the database.                                                              | `CREATE TABLE products (product_id INT, product_name VARCHAR(255));`                                 |
 | **ALTER TABLE**         | Modifies an existing table (e.g., add or drop columns, constraints).                              | `ALTER TABLE employees ADD COLUMN salary DECIMAL(10, 2);`                                            |
 | **DROP TABLE**          | Deletes an existing table from the database.                                                       | `DROP TABLE customers;`                                                                            |
 | **CREATE INDEX**        | Creates an index on a table to improve query performance.                                          | `CREATE INDEX idx_customer_id ON orders (customer_id);`                                              |
@@ -30,7 +42,9 @@
 | **TRUNCATE TABLE**      | Deletes all rows from a table without logging individual row deletions.                            | `TRUNCATE TABLE customers;`                                                                        |
 | **RENAME TABLE**        | Renames a table.                                                                                 | `RENAME TABLE products TO inventory;`                                                               |
 
-#### Data Aggregation and Grouping
+---
+
+## Data Aggregation and Grouping
 
 | SQL Command             | Description                                                                                      | Example Usage                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -38,13 +52,21 @@
 | **HAVING**              | Specifies a condition for filtering rows after a GROUP BY clause.                                   | `SELECT department, AVG(salary) AS avg_salary FROM employees GROUP BY department HAVING AVG(salary) > 50000;` |
 | **ORDER BY**            | Sorts the result set in ascending or descending order.                                             | `SELECT product_name, unit_price FROM products ORDER BY unit_price DESC;`                            |
 | **DISTINCT**            | Retrieves unique rows from a result set.                                                           | `SELECT DISTINCT category FROM products;`                                                           |
+
+---
+
+## Window Functions
+
+| SQL Command             | Description                                                                                      | Example Usage                                                                                     |
+|-------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
 | **WINDOW FUNCTIONS**    | Functions that perform calculations across a set of table rows related to the current row.         | `SELECT product_name, unit_price, AVG(unit_price) OVER (PARTITION BY category) AS avg_category_price FROM products;` |
 | **ROW_NUMBER()**        | Assigns a unique sequential integer to each row within a partition of a result set.                | `SELECT product_name, unit_price, ROW_NUMBER() OVER (ORDER BY unit_price DESC) AS rank FROM products;` |
 | **RANK()**              | Assigns a unique rank to each row within the partition of a result set, with gaps in ranking values. | `SELECT product_name, unit_price, RANK() OVER (PARTITION BY category ORDER BY unit_price DESC) AS rank FROM products;` |
 | **DENSE_RANK()**        | Assigns a unique rank to each row within the partition of a result set, without gaps in ranking values. | `SELECT product_name, unit_price, DENSE_RANK() OVER (PARTITION BY category ORDER BY unit_price DESC) AS rank FROM products;` |
-| **CUBE and ROLLUP**     | Provides multi-dimensional analysis of GROUP BY results (CUBE generates all possible subtotals, ROLLUP generates hierarchical subtotals). | `SELECT department, SUM(salary) AS total_salary FROM employees GROUP BY ROLLUP(department);`         |
 
-#### Joins and Subqueries
+---
+
+## Joins and Subqueries
 
 | SQL Command             | Description                                                                                      | Example Usage                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -57,7 +79,9 @@
 | **SEMANTI JOIN**        | Joins two tables based on the similarity of their content.                                         | `SELECT * FROM customers, orders WHERE customers SIMILAR TO orders;`                                |
 | **LEFT SEMI JOIN**      | Returns all columns from the left table when a match exists in the right table.                     | `SELECT * FROM customers LEFT SEMI JOIN orders ON customers.customer_id = orders.customer_id;`      |
 
-#### Data Analysis Functions
+---
+
+## Data Analysis Functions
 
 | SQL Command             | Description                                                                                      | Example Usage                                                                                     |
 |-------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
@@ -66,5 +90,12 @@
 | **COUNT()**             | Counts the number of rows or non-null values in a column or within a window frame.                 | `SELECT department, COUNT(*) AS employee_count FROM employees;`                                      |
 | **MIN()**               | Finds the minimum value in a column or within a window frame.                                      | `SELECT department, MIN(salary) AS min_salary FROM employees;`                                       |
 | **MAX()**               | Finds the maximum value in a column or within a window frame.                                      | `SELECT department, MAX(salary) AS max_salary FROM employees;`                                       |
-| **PARTITION BY**        | Divides the result set into partitions to which the window function is applied.                    | `SELECT product_name, unit_price, AVG(unit_price) OVER (PARTITION BY category) AS avg_category_price FROM products;` |
-| **ORDER BY**            | Specifies how rows
+| **PARTITION BY**        | Divides the result set into partitions to which the aggregate function is applied.                 | `SELECT department, employee_name, salary, AVG(salary) OVER (PARTITION BY department) AS avg_department_salary FROM employees;` |
+| **ROW_NUMBER()**        | Assigns a unique sequential integer to each row within a partition of a result set.                | `SELECT employee_name, salary, ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rank FROM employees;` |
+| **RANK()**              | Assigns a unique rank to each row within the partition of a result set, with gaps in ranking values. | `SELECT employee_name, salary, RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank FROM employees;` |
+| **DENSE_RANK()**        | Assigns a unique rank to each row within the partition of a result set, without gaps in ranking values. | `SELECT employee_name, salary, DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank FROM employees;` |
+
+---
+
+This table provides an overview of commonly used SQL commands and functions in data engineering tasks. Each command includes a brief description, example usage, and where applicable, a SQL query demonstrating its use.
+
